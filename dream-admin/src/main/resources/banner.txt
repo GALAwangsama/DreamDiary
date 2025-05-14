@@ -1,0 +1,2 @@
+Application Version: ${DreamDiary.version}
+Spring Boot Version: ${spring-boot.version}
