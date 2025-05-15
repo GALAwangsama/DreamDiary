@@ -226,6 +226,12 @@
                 <version>${DreamDiary.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.dream</groupId>
+                <artifactId>dream-ai</artifactId>
+                <version>${DreamDiary.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -237,6 +243,7 @@
         <module>dream-generator</module>
         <module>dream-common</module>
         <module>dream-module</module>
+        <module>dream-ai</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -24,10 +24,10 @@
         </dependency>
 
 
-        <!-- 系统模块-->
+        <!-- 通用工具模块-->
         <dependency>
             <groupId>com.dream</groupId>
-            <artifactId>dream-system</artifactId>
+            <artifactId>dream-common</artifactId>
         </dependency>
 
     </dependencies>

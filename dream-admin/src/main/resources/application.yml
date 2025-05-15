@@ -127,3 +127,14 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+#ai相关配置
+ai:
+    openai:
+      api-key: sk-ab49dee76f4b44d3b26ba235f551b378
+      base-url: https://api.deepseek.com
+      chat:
+        options:
+          model: deepseek-reasoner
+      embedding:
+        enabled: false

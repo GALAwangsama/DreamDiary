@@ -67,6 +67,12 @@
             <artifactId>dream-module</artifactId>
         </dependency>
 
+        <!-- ai模型-->
+        <dependency>
+            <groupId>com.dream</groupId>
+            <artifactId>dream-ai</artifactId>
+        </dependency>
+
 
     </dependencies>
 
