@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dream.module.mapper.DreamRecommendationMapper">
+    
+    <resultMap type="DreamRecommendation" id="DreamRecommendationResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="planContent"    column="plan_content"    />
+        <result property="planTags"    column="plan_tags"    />
+    </resultMap>
+
+    <sql id="selectDreamRecommendationVo">
+        select id, user_id, plan_content, plan_tags from dream_recommendation
+    </sql>
+
+    <select id="selectDreamRecommendationList" parameterType="DreamRecommendation" resultMap="DreamRecommendationResult">
+        <include refid="selectDreamRecommendationVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="planContent != null  and planContent != ''"> and plan_content = #{planContent}</if>
+            <if test="planTags != null  and planTags != ''"> and plan_tags = #{planTags}</if>
+        </where>
+    </select>
+    
+    <select id="selectDreamRecommendationById" parameterType="Long" resultMap="DreamRecommendationResult">
+        <include refid="selectDreamRecommendationVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDreamRecommendation" parameterType="DreamRecommendation" useGeneratedKeys="true" keyProperty="id">
+        insert into dream_recommendation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="planContent != null">plan_content,</if>
+            <if test="planTags != null">plan_tags,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="planContent != null">#{planContent},</if>
+            <if test="planTags != null">#{planTags},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDreamRecommendation" parameterType="DreamRecommendation">
+        update dream_recommendation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="planContent != null">plan_content = #{planContent},</if>
+            <if test="planTags != null">plan_tags = #{planTags},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDreamRecommendationById" parameterType="Long">
+        delete from dream_recommendation where id = #{id}
+    </delete>
+
+    <delete id="deleteDreamRecommendationByIds" parameterType="String">
+        delete from dream_recommendation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

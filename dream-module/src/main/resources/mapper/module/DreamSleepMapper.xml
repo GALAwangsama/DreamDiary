@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dream.module.mapper.DreamSleepMapper">
+    
+    <resultMap type="DreamSleep" id="DreamSleepResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="date"    column="date"    />
+        <result property="heartRate"    column="heart_rate"    />
+        <result property="oxygenLevel"    column="oxygen_level"    />
+        <result property="bodyTemperature"    column="body_temperature"    />
+        <result property="lactate"    column="lactate"    />
+        <result property="lightSleepDuration"    column="light_sleep_duration"    />
+        <result property="deepSleepDuration"    column="deep_sleep_duration"    />
+        <result property="rapidEyeMovementDuration"    column="rapid_eye_movement_duration"    />
+        <result property="wakeUpCount"    column="wake_up_count"    />
+        <result property="sleepBreathingQuality"    column="sleep_breathing_quality"    />
+    </resultMap>
+
+    <sql id="selectDreamSleepVo">
+        select id, user_id, date, heart_rate, oxygen_level, body_temperature, lactate, light_sleep_duration, deep_sleep_duration, rapid_eye_movement_duration, wake_up_count, sleep_breathing_quality from dream_sleep
+    </sql>
+
+    <select id="selectDreamSleepList" parameterType="DreamSleep" resultMap="DreamSleepResult">
+        <include refid="selectDreamSleepVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="heartRate != null "> and heart_rate = #{heartRate}</if>
+            <if test="oxygenLevel != null "> and oxygen_level = #{oxygenLevel}</if>
+            <if test="bodyTemperature != null "> and body_temperature = #{bodyTemperature}</if>
+            <if test="lactate != null "> and lactate = #{lactate}</if>
+            <if test="lightSleepDuration != null "> and light_sleep_duration = #{lightSleepDuration}</if>
+            <if test="deepSleepDuration != null "> and deep_sleep_duration = #{deepSleepDuration}</if>
+            <if test="rapidEyeMovementDuration != null "> and rapid_eye_movement_duration = #{rapidEyeMovementDuration}</if>
+            <if test="wakeUpCount != null "> and wake_up_count = #{wakeUpCount}</if>
+            <if test="sleepBreathingQuality != null  and sleepBreathingQuality != ''"> and sleep_breathing_quality = #{sleepBreathingQuality}</if>
+        </where>
+    </select>
+    
+    <select id="selectDreamSleepById" parameterType="Long" resultMap="DreamSleepResult">
+        <include refid="selectDreamSleepVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDreamSleep" parameterType="DreamSleep" useGeneratedKeys="true" keyProperty="id">
+        insert into dream_sleep
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="date != null">date,</if>
+            <if test="heartRate != null">heart_rate,</if>
+            <if test="oxygenLevel != null">oxygen_level,</if>
+            <if test="bodyTemperature != null">body_temperature,</if>
+            <if test="lactate != null">lactate,</if>
+            <if test="lightSleepDuration != null">light_sleep_duration,</if>
+            <if test="deepSleepDuration != null">deep_sleep_duration,</if>
+            <if test="rapidEyeMovementDuration != null">rapid_eye_movement_duration,</if>
+            <if test="wakeUpCount != null">wake_up_count,</if>
+            <if test="sleepBreathingQuality != null">sleep_breathing_quality,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="date != null">#{date},</if>
+            <if test="heartRate != null">#{heartRate},</if>
+            <if test="oxygenLevel != null">#{oxygenLevel},</if>
+            <if test="bodyTemperature != null">#{bodyTemperature},</if>
+            <if test="lactate != null">#{lactate},</if>
+            <if test="lightSleepDuration != null">#{lightSleepDuration},</if>
+            <if test="deepSleepDuration != null">#{deepSleepDuration},</if>
+            <if test="rapidEyeMovementDuration != null">#{rapidEyeMovementDuration},</if>
+            <if test="wakeUpCount != null">#{wakeUpCount},</if>
+            <if test="sleepBreathingQuality != null">#{sleepBreathingQuality},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDreamSleep" parameterType="DreamSleep">
+        update dream_sleep
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="heartRate != null">heart_rate = #{heartRate},</if>
+            <if test="oxygenLevel != null">oxygen_level = #{oxygenLevel},</if>
+            <if test="bodyTemperature != null">body_temperature = #{bodyTemperature},</if>
+            <if test="lactate != null">lactate = #{lactate},</if>
+            <if test="lightSleepDuration != null">light_sleep_duration = #{lightSleepDuration},</if>
+            <if test="deepSleepDuration != null">deep_sleep_duration = #{deepSleepDuration},</if>
+            <if test="rapidEyeMovementDuration != null">rapid_eye_movement_duration = #{rapidEyeMovementDuration},</if>
+            <if test="wakeUpCount != null">wake_up_count = #{wakeUpCount},</if>
+            <if test="sleepBreathingQuality != null">sleep_breathing_quality = #{sleepBreathingQuality},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDreamSleepById" parameterType="Long">
+        delete from dream_sleep where id = #{id}
+    </delete>
+
+    <delete id="deleteDreamSleepByIds" parameterType="String">
+        delete from dream_sleep where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

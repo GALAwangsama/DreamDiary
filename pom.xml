@@ -219,6 +219,13 @@
                 <version>${DreamDiary.version}</version>
             </dependency>
 
+            <!-- 业务内容-->
+            <dependency>
+                <groupId>com.dream</groupId>
+                <artifactId>dream-module</artifactId>
+                <version>${DreamDiary.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -229,6 +236,7 @@
         <module>dream-quartz</module>
         <module>dream-generator</module>
         <module>dream-common</module>
+        <module>dream-module</module>
     </modules>
     <packaging>pom</packaging>
 

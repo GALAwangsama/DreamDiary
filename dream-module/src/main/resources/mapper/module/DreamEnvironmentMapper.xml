@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dream.module.mapper.DreamEnvironmentMapper">
+    
+    <resultMap type="DreamEnvironment" id="DreamEnvironmentResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="temperature"    column="temperature"    />
+        <result property="humidity"    column="humidity"    />
+        <result property="decibel"    column="decibel"    />
+        <result property="light"    column="light"    />
+        <result property="airQuality"    column="air_quality"    />
+        <result property="carbonDioxideConcentration"    column="carbon_dioxide_concentration"    />
+    </resultMap>
+
+    <sql id="selectDreamEnvironmentVo">
+        select id, user_id, temperature, humidity, decibel, light, air_quality, carbon_dioxide_concentration from dream_environment
+    </sql>
+
+    <select id="selectDreamEnvironmentList" parameterType="DreamEnvironment" resultMap="DreamEnvironmentResult">
+        <include refid="selectDreamEnvironmentVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="temperature != null "> and temperature = #{temperature}</if>
+            <if test="humidity != null "> and humidity = #{humidity}</if>
+            <if test="decibel != null "> and decibel = #{decibel}</if>
+            <if test="light != null "> and light = #{light}</if>
+            <if test="airQuality != null  and airQuality != ''"> and air_quality = #{airQuality}</if>
+            <if test="carbonDioxideConcentration != null "> and carbon_dioxide_concentration = #{carbonDioxideConcentration}</if>
+        </where>
+    </select>
+    
+    <select id="selectDreamEnvironmentById" parameterType="Long" resultMap="DreamEnvironmentResult">
+        <include refid="selectDreamEnvironmentVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDreamEnvironment" parameterType="DreamEnvironment" useGeneratedKeys="true" keyProperty="id">
+        insert into dream_environment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="temperature != null">temperature,</if>
+            <if test="humidity != null">humidity,</if>
+            <if test="decibel != null">decibel,</if>
+            <if test="light != null">light,</if>
+            <if test="airQuality != null">air_quality,</if>
+            <if test="carbonDioxideConcentration != null">carbon_dioxide_concentration,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="temperature != null">#{temperature},</if>
+            <if test="humidity != null">#{humidity},</if>
+            <if test="decibel != null">#{decibel},</if>
+            <if test="light != null">#{light},</if>
+            <if test="airQuality != null">#{airQuality},</if>
+            <if test="carbonDioxideConcentration != null">#{carbonDioxideConcentration},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDreamEnvironment" parameterType="DreamEnvironment">
+        update dream_environment
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="temperature != null">temperature = #{temperature},</if>
+            <if test="humidity != null">humidity = #{humidity},</if>
+            <if test="decibel != null">decibel = #{decibel},</if>
+            <if test="light != null">light = #{light},</if>
+            <if test="airQuality != null">air_quality = #{airQuality},</if>
+            <if test="carbonDioxideConcentration != null">carbon_dioxide_concentration = #{carbonDioxideConcentration},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDreamEnvironmentById" parameterType="Long">
+        delete from dream_environment where id = #{id}
+    </delete>
+
+    <delete id="deleteDreamEnvironmentByIds" parameterType="String">
+        delete from dream_environment where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

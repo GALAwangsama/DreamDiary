@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dream.module.mapper.DreamTodoMapper">
+    
+    <resultMap type="DreamTodo" id="DreamTodoResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="content"    column="content"    />
+        <result property="isCompleted"    column="is_completed"    />
+    </resultMap>
+
+    <sql id="selectDreamTodoVo">
+        select id, user_id, content, is_completed from dream_todo
+    </sql>
+
+    <select id="selectDreamTodoList" parameterType="DreamTodo" resultMap="DreamTodoResult">
+        <include refid="selectDreamTodoVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="isCompleted != null "> and is_completed = #{isCompleted}</if>
+        </where>
+    </select>
+    
+    <select id="selectDreamTodoById" parameterType="Long" resultMap="DreamTodoResult">
+        <include refid="selectDreamTodoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDreamTodo" parameterType="DreamTodo" useGeneratedKeys="true" keyProperty="id">
+        insert into dream_todo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="content != null">content,</if>
+            <if test="isCompleted != null">is_completed,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="content != null">#{content},</if>
+            <if test="isCompleted != null">#{isCompleted},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDreamTodo" parameterType="DreamTodo">
+        update dream_todo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="isCompleted != null">is_completed = #{isCompleted},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDreamTodoById" parameterType="Long">
+        delete from dream_todo where id = #{id}
+    </delete>
+
+    <delete id="deleteDreamTodoByIds" parameterType="String">
+        delete from dream_todo where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

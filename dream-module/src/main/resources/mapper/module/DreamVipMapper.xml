@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dream.module.mapper.DreamVipMapper">
+    
+    <resultMap type="DreamVip" id="DreamVipResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="vipLevel"    column="vip_level"    />
+        <result property="vipExpiryDate"    column="vip_expiry_date"    />
+    </resultMap>
+
+    <sql id="selectDreamVipVo">
+        select id, user_id, vip_level, vip_expiry_date from dream_vip
+    </sql>
+
+    <select id="selectDreamVipList" parameterType="DreamVip" resultMap="DreamVipResult">
+        <include refid="selectDreamVipVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="vipLevel != null "> and vip_level = #{vipLevel}</if>
+            <if test="vipExpiryDate != null "> and vip_expiry_date = #{vipExpiryDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectDreamVipById" parameterType="Long" resultMap="DreamVipResult">
+        <include refid="selectDreamVipVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDreamVip" parameterType="DreamVip" useGeneratedKeys="true" keyProperty="id">
+        insert into dream_vip
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="vipLevel != null">vip_level,</if>
+            <if test="vipExpiryDate != null">vip_expiry_date,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="vipLevel != null">#{vipLevel},</if>
+            <if test="vipExpiryDate != null">#{vipExpiryDate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDreamVip" parameterType="DreamVip">
+        update dream_vip
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="vipLevel != null">vip_level = #{vipLevel},</if>
+            <if test="vipExpiryDate != null">vip_expiry_date = #{vipExpiryDate},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDreamVipById" parameterType="Long">
+        delete from dream_vip where id = #{id}
+    </delete>
+
+    <delete id="deleteDreamVipByIds" parameterType="String">
+        delete from dream_vip where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

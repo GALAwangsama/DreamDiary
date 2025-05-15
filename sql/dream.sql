@@ -45,10 +45,10 @@ CREATE TABLE dream_recommendation (
                                      plan_content TEXT COMMENT '建议内容',
                                      plan_tags VARCHAR(255) COMMENT '建议标签（代办内容）'
 ) COMMENT='推荐计划表';
-# -- 会员标记表
-# CREATE TABLE member_tag (
-#                             id BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
-#                             user_id BIGINT(20) COMMENT '用户ID',
-#                             vip_level INT COMMENT '用户VIP等级',
-#                             vip_expiry_date DATE COMMENT '用户VIP过期时间'
-# ) COMMENT='会员标记表';
+-- 会员标记表
+CREATE TABLE member_tag (
+                            id BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+                            user_id BIGINT(20) COMMENT '用户ID',
+                            vip_level INT COMMENT '用户VIP等级',
+                            vip_expiry_date DATE COMMENT '用户VIP过期时间'
+) COMMENT='会员标记表';

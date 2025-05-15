@@ -61,6 +61,13 @@
             <artifactId>dream-generator</artifactId>
         </dependency>
 
+        <!-- 业务内容-->
+        <dependency>
+            <groupId>com.dream</groupId>
+            <artifactId>dream-module</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <build>
