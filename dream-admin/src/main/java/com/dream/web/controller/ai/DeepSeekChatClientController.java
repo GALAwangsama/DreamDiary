@@ -20,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/dream/ai")
 public class DeepSeekChatClientController {
 
-    private static final String DEFAULT_PROMPT = "你好，我想使用java语言获取到deepseek模型的思维链，有什么api可以给我调用吗";
+    private static final String DEFAULT_PROMPT = "你好";
 
      @Resource
      private ChatClient DeepSeekChatClient;
@@ -46,11 +46,6 @@ public class DeepSeekChatClientController {
     @GetMapping(value = "/customOptions")
     public ChatResponse customOptions () {
 
-//        return this.DeepSeekChatClient.prompt(new Prompt(
-//                "你好，我想使用java语言获取到deepseek模型的思维链，有什么api可以给我调用吗",
-//                        OpenAiChatOptions.builder().temperature(0.75).build())
-//                ).call()
-//                .chatResponse();
         ChatResponse chatResponse = this.DeepSeekChatClient.prompt(new Prompt(
                 "你好，我想使用java语言创建一个图书管理程序，我该怎么办",
                 OpenAiChatOptions.builder().temperature(0.75).build())
