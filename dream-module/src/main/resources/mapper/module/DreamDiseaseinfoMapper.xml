@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dream.module.mapper.DreamDiseaseinfoMapper">
+    
+    <resultMap type="DreamDiseaseinfo" id="DreamDiseaseinfoResult">
+        <result property="id"    column="id"    />
+        <result property="diseaseName"    column="disease_name"    />
+        <result property="diseaseSymptom"    column="disease_symptom"    />
+        <result property="damagedOrgan"    column="damaged_organ"    />
+        <result property="sleepEffects"    column="sleep_effects"    />
+        <result property="sleepAdvice"    column="sleep_advice"    />
+        <result property="sportsAdvice"    column="sports_advice"    />
+        <result property="dietaryAdvice"    column="dietary_advice"    />
+    </resultMap>
+
+    <sql id="selectDreamDiseaseinfoVo">
+        select id, disease_name, disease_symptom, damaged_organ, sleep_effects, sleep_advice, sports_advice, dietary_advice from dream_diseaseinfo
+    </sql>
+
+    <select id="selectDreamDiseaseinfoList" parameterType="DreamDiseaseinfo" resultMap="DreamDiseaseinfoResult">
+        <include refid="selectDreamDiseaseinfoVo"/>
+        <where>  
+            <if test="diseaseName != null  and diseaseName != ''"> and disease_name like concat('%', #{diseaseName}, '%')</if>
+            <if test="diseaseSymptom != null  and diseaseSymptom != ''"> and disease_symptom = #{diseaseSymptom}</if>
+            <if test="damagedOrgan != null  and damagedOrgan != ''"> and damaged_organ = #{damagedOrgan}</if>
+            <if test="sleepEffects != null  and sleepEffects != ''"> and sleep_effects = #{sleepEffects}</if>
+            <if test="sleepAdvice != null  and sleepAdvice != ''"> and sleep_advice = #{sleepAdvice}</if>
+            <if test="sportsAdvice != null  and sportsAdvice != ''"> and sports_advice = #{sportsAdvice}</if>
+            <if test="dietaryAdvice != null  and dietaryAdvice != ''"> and dietary_advice = #{dietaryAdvice}</if>
+        </where>
+    </select>
+    
+    <select id="selectDreamDiseaseinfoById" parameterType="Long" resultMap="DreamDiseaseinfoResult">
+        <include refid="selectDreamDiseaseinfoVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertDreamDiseaseinfo" parameterType="DreamDiseaseinfo" useGeneratedKeys="true" keyProperty="id">
+        insert into dream_diseaseinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="diseaseName != null">disease_name,</if>
+            <if test="diseaseSymptom != null">disease_symptom,</if>
+            <if test="damagedOrgan != null">damaged_organ,</if>
+            <if test="sleepEffects != null">sleep_effects,</if>
+            <if test="sleepAdvice != null">sleep_advice,</if>
+            <if test="sportsAdvice != null">sports_advice,</if>
+            <if test="dietaryAdvice != null">dietary_advice,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="diseaseName != null">#{diseaseName},</if>
+            <if test="diseaseSymptom != null">#{diseaseSymptom},</if>
+            <if test="damagedOrgan != null">#{damagedOrgan},</if>
+            <if test="sleepEffects != null">#{sleepEffects},</if>
+            <if test="sleepAdvice != null">#{sleepAdvice},</if>
+            <if test="sportsAdvice != null">#{sportsAdvice},</if>
+            <if test="dietaryAdvice != null">#{dietaryAdvice},</if>
+         </trim>
+    </insert>
+
+    <update id="updateDreamDiseaseinfo" parameterType="DreamDiseaseinfo">
+        update dream_diseaseinfo
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="diseaseName != null">disease_name = #{diseaseName},</if>
+            <if test="diseaseSymptom != null">disease_symptom = #{diseaseSymptom},</if>
+            <if test="damagedOrgan != null">damaged_organ = #{damagedOrgan},</if>
+            <if test="sleepEffects != null">sleep_effects = #{sleepEffects},</if>
+            <if test="sleepAdvice != null">sleep_advice = #{sleepAdvice},</if>
+            <if test="sportsAdvice != null">sports_advice = #{sportsAdvice},</if>
+            <if test="dietaryAdvice != null">dietary_advice = #{dietaryAdvice},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDreamDiseaseinfoById" parameterType="Long">
+        delete from dream_diseaseinfo where id = #{id}
+    </delete>
+
+    <delete id="deleteDreamDiseaseinfoByIds" parameterType="String">
+        delete from dream_diseaseinfo where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
