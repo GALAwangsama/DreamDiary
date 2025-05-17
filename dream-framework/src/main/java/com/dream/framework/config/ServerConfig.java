@@ -1,6 +1,6 @@
 package com.dream.framework.config;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 import com.dream.common.utils.ServletUtils;
 

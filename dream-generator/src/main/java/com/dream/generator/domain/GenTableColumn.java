@@ -1,6 +1,6 @@
 package com.dream.generator.domain;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import com.dream.common.core.domain.BaseEntity;
 import com.dream.common.utils.StringUtils;
 
