@@ -37,7 +37,8 @@ CREATE TABLE dream_todo (
                            id BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
                            user_id BIGINT(20) NOT NULL COMMENT '用户ID',
                            content VARCHAR(255) COMMENT '代办内容',
-                           is_completed TINYINT(1) DEFAULT 0 COMMENT '代办是否完成标识，0表示未完成，1表示已完成'
+                           is_completed TINYINT(1) DEFAULT 0 COMMENT '代办是否完成标识，0表示未完成，1表示已完成',
+                           recommendation_id BIGINT(20) NOT NULL COMMENT '代办来源建议标识'
 ) COMMENT='代办表';
 
 -- 推荐计划表
