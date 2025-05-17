@@ -26,6 +26,11 @@ public class DreamTodo extends BaseEntity
     @Excel(name = "代办内容")
     private String content;
 
+
+    /** 代办标识，标识代办来自的建议id */
+    @Excel(name="代办来源建议")
+    private Long recommendationId;
+
     /** 代办是否完成标识，0表示未完成，1表示已完成 */
     @Excel(name = "代办是否完成标识，0表示未完成，1表示已完成")
     private Integer isCompleted;
@@ -68,6 +73,14 @@ public class DreamTodo extends BaseEntity
     public Integer getIsCompleted() 
     {
         return isCompleted;
+    }
+
+    public Long getRecommendationId() {
+        return recommendationId;
+    }
+
+    public void setRecommendationId(Long recommendationId) {
+        this.recommendationId = recommendationId;
     }
 
     @Override

@@ -1,6 +1,8 @@
-package com.dream.module.controller;
+package com.dream.web.controller.module;
 
 import java.util.List;
+
+import com.sun.xml.bind.v2.TODO;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +36,14 @@ public class DreamRecommendationController extends BaseController
     @Autowired
     private IDreamRecommendationService dreamRecommendationService;
 
+    //TODO 添加选择代办接口功能（结合ai）
+
+    //TODO 查看建议关联的代办
+
     /**
      * 查询推荐计划列表
      */
+    //TODO 关联userid
     @PreAuthorize("@ss.hasPermi('module:recommendation:list')")
     @GetMapping("/list")
     public TableDataInfo list(DreamRecommendation dreamRecommendation)
@@ -72,6 +79,8 @@ public class DreamRecommendationController extends BaseController
     /**
      * 新增推荐计划
      */
+    //TODO 添加根据模型分析生成建议接口（结合ai）
+    //TODO 考虑将此接口改为ai接口
     @PreAuthorize("@ss.hasPermi('module:recommendation:add')")
     @Log(title = "推荐计划", businessType = BusinessType.INSERT)
     @PostMapping
@@ -83,6 +92,7 @@ public class DreamRecommendationController extends BaseController
     /**
      * 修改推荐计划
      */
+    //TODO 考虑将此接口转为重新生成（如果添加过代办，考虑同时删除代办）
     @PreAuthorize("@ss.hasPermi('module:recommendation:edit')")
     @Log(title = "推荐计划", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -94,6 +104,7 @@ public class DreamRecommendationController extends BaseController
     /**
      * 删除推荐计划
      */
+    //TODO 需关联代办
     @PreAuthorize("@ss.hasPermi('module:recommendation:remove')")
     @Log(title = "推荐计划", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")

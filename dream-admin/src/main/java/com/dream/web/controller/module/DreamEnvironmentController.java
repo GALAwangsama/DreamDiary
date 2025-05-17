@@ -1,4 +1,4 @@
-package com.dream.module.controller;
+package com.dream.web.controller.module;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,6 +37,7 @@ public class DreamEnvironmentController extends BaseController
     /**
      * 查询环境参数列表
      */
+    //TODO 添加userid关联
     @PreAuthorize("@ss.hasPermi('module:environment:list')")
     @GetMapping("/list")
     public TableDataInfo list(DreamEnvironment dreamEnvironment)
@@ -72,6 +73,7 @@ public class DreamEnvironmentController extends BaseController
     /**
      * 新增环境参数
      */
+    //TODO 添加userid关联
     @PreAuthorize("@ss.hasPermi('module:environment:add')")
     @Log(title = "环境参数", businessType = BusinessType.INSERT)
     @PostMapping

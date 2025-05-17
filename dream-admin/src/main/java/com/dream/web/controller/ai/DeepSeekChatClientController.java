@@ -13,8 +13,10 @@ import reactor.core.publisher.Flux;
 
 import java.util.Map;
 
+
+
 /**
- * @author 北极星
+ * @author GALAwang
  */
 @RestController
 @RequestMapping("/dream/ai")
@@ -35,6 +37,11 @@ public class DeepSeekChatClientController {
 //                // 设置 ChatClient 中 ChatModel 的 Options 参数
 //                .defaultOptions(OpenAiChatOptions.builder().temperature(0.7d).build()).build();
 //    }
+
+
+    //TODO     实现AI对话/调用相关接口
+
+
 
 
     /**

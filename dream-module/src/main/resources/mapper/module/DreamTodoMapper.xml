@@ -9,10 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="userId"    column="user_id"    />
         <result property="content"    column="content"    />
         <result property="isCompleted"    column="is_completed"    />
+        <result property="recommendationId" column="recommendation_id" />
     </resultMap>
 
     <sql id="selectDreamTodoVo">
-        select id, user_id, content, is_completed from dream_todo
+        select id, user_id, content, is_completed , recommendation_id  from dream_todo
     </sql>
 
     <select id="selectDreamTodoList" parameterType="DreamTodo" resultMap="DreamTodoResult">
@@ -21,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="userId != null "> and user_id = #{userId}</if>
             <if test="content != null  and content != ''"> and content = #{content}</if>
             <if test="isCompleted != null "> and is_completed = #{isCompleted}</if>
+            <if test="recommendationId != null "> and recommendation_id = #{recommendationId}</if>
         </where>
     </select>
     
@@ -35,11 +37,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="userId != null">user_id,</if>
             <if test="content != null">content,</if>
             <if test="isCompleted != null">is_completed,</if>
+            <if test="recommendationId != null ">recommendation_id</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">#{userId},</if>
             <if test="content != null">#{content},</if>
             <if test="isCompleted != null">#{isCompleted},</if>
+            <if test="recommendationId != null ">#{recommendationId}</if>
          </trim>
     </insert>
 
@@ -49,6 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="userId != null">user_id = #{userId},</if>
             <if test="content != null">content = #{content},</if>
             <if test="isCompleted != null">is_completed = #{isCompleted},</if>
+            <if test="recommendationId != null ">recommendation_id = #{recommendationId}</if>
         </trim>
         where id = #{id}
     </update>

@@ -1,4 +1,4 @@
-package com.dream.module.controller;
+package com.dream.web.controller.module;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,6 +27,7 @@ import com.dream.common.core.page.TableDataInfo;
  * @author ruoyi
  * @date 2025-05-15
  */
+//TODO 属于额外功能，暂时需求不明
 @RestController
 @RequestMapping("/module/vip")
 public class DreamVipController extends BaseController

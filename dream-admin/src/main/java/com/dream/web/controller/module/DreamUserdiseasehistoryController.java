@@ -1,4 +1,4 @@
-package com.dream.module.controller;
+package com.dream.web.controller.module;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,9 +34,12 @@ public class DreamUserdiseasehistoryController extends BaseController
     @Autowired
     private IDreamUserdiseasehistoryService dreamUserdiseasehistoryService;
 
+    //TODO 前端传入的为下拉栏列表
+
     /**
      * 查询用户病史，存储用户与疾病信息的关联关系列表
      */
+    //TODO 添加userid，疾病查询
     @PreAuthorize("@ss.hasPermi('module:userdiseasehistory:list')")
     @GetMapping("/list")
     public TableDataInfo list(DreamUserdiseasehistory dreamUserdiseasehistory)
@@ -62,6 +65,7 @@ public class DreamUserdiseasehistoryController extends BaseController
     /**
      * 获取用户病史，存储用户与疾病信息的关联关系详细信息
      */
+    //TODO 添加病史数据库关联查询
     @PreAuthorize("@ss.hasPermi('module:userdiseasehistory:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id)
@@ -72,6 +76,7 @@ public class DreamUserdiseasehistoryController extends BaseController
     /**
      * 新增用户病史，存储用户与疾病信息的关联关系
      */
+    //TODO 添加时间上的设置
     @PreAuthorize("@ss.hasPermi('module:userdiseasehistory:add')")
     @Log(title = "用户病史，存储用户与疾病信息的关联关系", businessType = BusinessType.INSERT)
     @PostMapping
@@ -83,6 +88,7 @@ public class DreamUserdiseasehistoryController extends BaseController
     /**
      * 修改用户病史，存储用户与疾病信息的关联关系
      */
+    //TODO 添加时间上的设置
     @PreAuthorize("@ss.hasPermi('module:userdiseasehistory:edit')")
     @Log(title = "用户病史，存储用户与疾病信息的关联关系", businessType = BusinessType.UPDATE)
     @PutMapping

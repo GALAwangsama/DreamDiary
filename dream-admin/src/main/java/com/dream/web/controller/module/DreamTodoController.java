@@ -1,4 +1,4 @@
-package com.dream.module.controller;
+package com.dream.web.controller.module;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,6 +37,7 @@ public class DreamTodoController extends BaseController
     /**
      * 查询代办列表
      */
+    //TODO 添加userid关联
     @PreAuthorize("@ss.hasPermi('module:todo:list')")
     @GetMapping("/list")
     public TableDataInfo list(DreamTodo dreamTodo)
@@ -49,6 +50,7 @@ public class DreamTodoController extends BaseController
     /**
      * 导出代办列表
      */
+
     @PreAuthorize("@ss.hasPermi('module:todo:export')")
     @Log(title = "代办", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -72,6 +74,7 @@ public class DreamTodoController extends BaseController
     /**
      * 新增代办
      */
+    //TODO 考虑融入建议控制类，需根据建议新增代办
     @PreAuthorize("@ss.hasPermi('module:todo:add')")
     @Log(title = "代办", businessType = BusinessType.INSERT)
     @PostMapping
@@ -83,6 +86,7 @@ public class DreamTodoController extends BaseController
     /**
      * 修改代办
      */
+    //TODO 可用于完成代办的修改更改
     @PreAuthorize("@ss.hasPermi('module:todo:edit')")
     @Log(title = "代办", businessType = BusinessType.UPDATE)
     @PutMapping

@@ -1,4 +1,4 @@
-package com.dream.module.controller;
+package com.dream.web.controller.module;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,6 +37,7 @@ public class DreamSleepController extends BaseController
     /**
      * 查询睡眠参数列表
      */
+    //TODO 添加用户id的关联（id相关使用security工具）
     @PreAuthorize("@ss.hasPermi('module:sleep:list')")
     @GetMapping("/list")
     public TableDataInfo list(DreamSleep dreamSleep)
@@ -69,9 +70,13 @@ public class DreamSleepController extends BaseController
         return success(dreamSleepService.selectDreamSleepById(id));
     }
 
+    //TODO 单独根据日期获取睡眠参数详细信息接口（是否跟list方法合并）
+
+
     /**
      * 新增睡眠参数
      */
+    //TODO 添加用户id的关联
     @PreAuthorize("@ss.hasPermi('module:sleep:add')")
     @Log(title = "睡眠参数", businessType = BusinessType.INSERT)
     @PostMapping

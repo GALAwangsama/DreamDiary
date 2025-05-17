@@ -1,4 +1,4 @@
-package com.dream.module.controller;
+package com.dream.web.controller.module;
 
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,16 +23,23 @@ import com.dream.common.core.page.TableDataInfo;
 
 /**
  * 病例数据库，存储疾病相关信息及建议Controller
+ * 用于存放病例数据库
  * 
  * @author ruoyi
  * @date 2025-05-17
  */
+
 @RestController
 @RequestMapping("/module/diseaseinfo")
 public class DreamDiseaseinfoController extends BaseController
 {
     @Autowired
     private IDreamDiseaseinfoService dreamDiseaseinfoService;
+
+    //TODO 是否需要一个枚举类做字典集存储病例名
+
+    //TODO 创建根据病症name进行匹配查询的方法
+
 
     /**
      * 查询病例数据库，存储疾病相关信息及建议列表
