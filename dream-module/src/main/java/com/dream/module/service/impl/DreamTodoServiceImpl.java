@@ -90,4 +90,15 @@ public class DreamTodoServiceImpl implements IDreamTodoService
     {
         return dreamTodoMapper.deleteDreamTodoById(id);
     }
+
+    /**
+     * 根据recommendation批量删除代办
+     *
+     * @param recommendationIds 需要删除的代办主键
+     * @return 结果
+     */
+    @Override
+    public int deleteDreamTodoByRecommendationIds(Long[] recommendationIds) {
+        return dreamTodoMapper.deleteDreamTodoByRecommendationIds(recommendationIds);
+    }
 }

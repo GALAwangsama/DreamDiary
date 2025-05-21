@@ -29,6 +29,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
+    <select id="selectDreamUserdiseasehistoryByUserId" parameterType="Long" resultType="com.dream.module.domain.DreamUserdiseasehistory">
+        <include refid="selectDreamUserdiseasehistoryVo"/>
+        where id = #{user_id}
+
+    </select>
+
     <insert id="insertDreamUserdiseasehistory" parameterType="DreamUserdiseasehistory" useGeneratedKeys="true" keyProperty="id">
         insert into dream_userdiseasehistory
         <trim prefix="(" suffix=")" suffixOverrides=",">

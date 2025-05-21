@@ -29,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
+
     <insert id="insertDreamRecommendation" parameterType="DreamRecommendation" useGeneratedKeys="true" keyProperty="id">
         insert into dream_recommendation
         <trim prefix="(" suffix=")" suffixOverrides=",">

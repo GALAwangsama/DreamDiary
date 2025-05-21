@@ -58,4 +58,11 @@ public interface IDreamUserdiseasehistoryService
      * @return 结果
      */
     public int deleteDreamUserdiseasehistoryById(Long id);
+
+    /**
+     * 根据用户id查询用户病史，存储用户与疾病信息的关联关系
+     * @param userId 用户病史，存储用户与疾病信息的关联关系主键
+     * @return 结果
+     */
+    DreamUserdiseasehistory selectDreamUserdiseasehistoryByUserId(Long userId);
 }

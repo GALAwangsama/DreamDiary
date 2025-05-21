@@ -58,4 +58,12 @@ public interface IDreamTodoService
      * @return 结果
      */
     public int deleteDreamTodoById(Long id);
+
+    /**
+     * 删除代办信息
+     *
+     * @param recommendationIds 代办关联建议主键
+     * @return 结果
+     */
+    public int deleteDreamTodoByRecommendationIds(Long[] recommendationIds);
 }

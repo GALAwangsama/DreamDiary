@@ -90,4 +90,14 @@ public class DreamUserdiseasehistoryServiceImpl implements IDreamUserdiseasehist
     {
         return dreamUserdiseasehistoryMapper.deleteDreamUserdiseasehistoryById(id);
     }
+
+    /**
+     * 根据id查询用户病史
+     * @param userId 用户病史，存储用户与疾病信息的关联关系主键
+     * @return
+     */
+    @Override
+    public DreamUserdiseasehistory selectDreamUserdiseasehistoryByUserId(Long userId) {
+        return dreamUserdiseasehistoryMapper.selectDreamUserdiseasehistoryByUserId(userId);
+    }
 }

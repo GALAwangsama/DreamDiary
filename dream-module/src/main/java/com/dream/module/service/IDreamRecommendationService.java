@@ -58,4 +58,6 @@ public interface IDreamRecommendationService
      * @return 结果
      */
     public int deleteDreamRecommendationById(Long id);
+
+
 }

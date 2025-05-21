@@ -90,4 +90,5 @@ public class DreamRecommendationServiceImpl implements IDreamRecommendationServi
     {
         return dreamRecommendationMapper.deleteDreamRecommendationById(id);
     }
+
 }

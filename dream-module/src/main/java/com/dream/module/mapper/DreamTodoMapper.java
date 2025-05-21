@@ -60,4 +60,6 @@ public interface DreamTodoMapper
      * @return 结果
      */
     public int deleteDreamTodoByIds(Long[] ids);
+
+    public int deleteDreamTodoByRecommendationIds(Long[] recommendationIds);
 }

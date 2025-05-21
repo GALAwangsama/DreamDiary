@@ -58,4 +58,6 @@ public interface DreamUserdiseasehistoryMapper
      * @return 结果
      */
     public int deleteDreamUserdiseasehistoryByIds(Long[] ids);
+
+    DreamUserdiseasehistory selectDreamUserdiseasehistoryByUserId(Long userId);
 }

@@ -60,4 +60,6 @@ public interface DreamRecommendationMapper
      * @return 结果
      */
     public int deleteDreamRecommendationByIds(Long[] ids);
+
+
 }

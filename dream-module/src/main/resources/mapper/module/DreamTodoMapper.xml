@@ -68,4 +68,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+    <delete id="deleteDreamTodoByRecommendationIds">
+        delete from dream_todo where recommendation_id in
+        <foreach item="recommendationId" collection="array" open="(" separator="," close=")">
+            #{recommendationId}
+        </foreach>
+    </delete>
 </mapper>

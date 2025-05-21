@@ -1,6 +1,8 @@
 package com.dream.web.controller.module;
 
 import java.util.List;
+
+import com.dream.common.utils.SecurityUtils;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,12 +39,12 @@ public class DreamTodoController extends BaseController
     /**
      * 查询代办列表
      */
-    //TODO 添加userid关联
     @PreAuthorize("@ss.hasPermi('module:todo:list')")
     @GetMapping("/list")
     public TableDataInfo list(DreamTodo dreamTodo)
     {
         startPage();
+        dreamTodo.setUserId(SecurityUtils.getLoginUser().getUserId());
         List<DreamTodo> list = dreamTodoService.selectDreamTodoList(dreamTodo);
         return getDataTable(list);
     }
@@ -74,19 +76,20 @@ public class DreamTodoController extends BaseController
     /**
      * 新增代办
      */
-    //TODO 考虑融入建议控制类，需根据建议新增代办
+    //TODO 由前端通过建议获取对应信息，进行新增操作
     @PreAuthorize("@ss.hasPermi('module:todo:add')")
     @Log(title = "代办", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody DreamTodo dreamTodo)
     {
+        dreamTodo.setIsCompleted(1);
+        dreamTodo.setUserId(SecurityUtils.getLoginUser().getUserId());
         return toAjax(dreamTodoService.insertDreamTodo(dreamTodo));
     }
 
     /**
      * 修改代办
      */
-    //TODO 可用于完成代办的修改更改
     @PreAuthorize("@ss.hasPermi('module:todo:edit')")
     @Log(title = "代办", businessType = BusinessType.UPDATE)
     @PutMapping

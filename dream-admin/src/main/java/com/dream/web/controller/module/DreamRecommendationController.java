@@ -1,19 +1,21 @@
 package com.dream.web.controller.module;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.dream.common.core.redis.RedisCache;
+import com.dream.common.utils.SecurityUtils;
+import com.dream.module.domain.DreamTodo;
+import com.dream.module.domain.DreamUserdiseasehistory;
+import com.dream.module.service.IDreamDiseaseinfoService;
+import com.dream.module.service.IDreamTodoService;
+import com.dream.module.service.IDreamUserdiseasehistoryService;
 import com.sun.xml.bind.v2.TODO;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 import com.dream.common.annotation.Log;
 import com.dream.common.core.controller.BaseController;
 import com.dream.common.core.domain.AjaxResult;
@@ -36,19 +38,38 @@ public class DreamRecommendationController extends BaseController
     @Autowired
     private IDreamRecommendationService dreamRecommendationService;
 
-    //TODO 添加选择代办接口功能（结合ai）
+    @Autowired
+    private IDreamTodoService dreamTodoService;
 
-    //TODO 查看建议关联的代办
+    @Autowired
+    private IDreamUserdiseasehistoryService dreamUserdiseasehistoryService;
+
+    @Autowired
+    private IDreamDiseaseinfoService dreamDiseaseinfoService;
+
+
+    /**
+     * 查看建议关联的代办
+     */
+    @PreAuthorize("@ss.hasPermi('module:recommendation:getTodo')")
+    @GetMapping("/todo/{recommendation_id}")
+    public TableDataInfo getTodo(@PathVariable Long recommendation_id)
+    {
+
+        DreamTodo dreamTodo = new DreamTodo();
+        dreamTodo.setRecommendationId(recommendation_id);
+        return getDataTable(dreamTodoService.selectDreamTodoList(dreamTodo));
+    }
 
     /**
      * 查询推荐计划列表
      */
-    //TODO 关联userid
     @PreAuthorize("@ss.hasPermi('module:recommendation:list')")
     @GetMapping("/list")
     public TableDataInfo list(DreamRecommendation dreamRecommendation)
     {
         startPage();
+        dreamRecommendation.setUserId(SecurityUtils.getLoginUser().getUserId());
         List<DreamRecommendation> list = dreamRecommendationService.selectDreamRecommendationList(dreamRecommendation);
         return getDataTable(list);
     }
@@ -76,6 +97,36 @@ public class DreamRecommendationController extends BaseController
         return success(dreamRecommendationService.selectDreamRecommendationById(id));
     }
 
+    //TODO 添加选择代办接口功能（结合ai）（由前端还是后端做）
+
+
+    //TODO 生成推荐计划（先生成，再新增）
+    /**
+     * 生成推荐计划列表
+     */
+    //TODO 关联userid
+    @PreAuthorize("@ss.hasPermi('module:recommendation:generate')")
+    @Transactional
+    @GetMapping("/generate")
+    public List<DreamRecommendation> generate()
+    {
+        Long userId = SecurityUtils.getLoginUser().getUserId();
+        //获取病例
+        DreamUserdiseasehistory dreamUserdiseasehistory = dreamUserdiseasehistoryService.selectDreamUserdiseasehistoryByUserId(userId);
+
+        //获取睡眠参数
+
+        //进行ai调用分析出建议
+
+        //给出代办
+
+        //缓存生成的代办
+
+        return null;
+    }
+
+
+
     /**
      * 新增推荐计划
      */
@@ -86,8 +137,16 @@ public class DreamRecommendationController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody DreamRecommendation dreamRecommendation)
     {
+
+        //获取缓存的计划
+
+        //添加计划
+
         return toAjax(dreamRecommendationService.insertDreamRecommendation(dreamRecommendation));
     }
+
+
+
 
     /**
      * 修改推荐计划
@@ -98,18 +157,31 @@ public class DreamRecommendationController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody DreamRecommendation dreamRecommendation)
     {
+        //删除关联代办
+        dreamTodoService.deleteDreamTodoByRecommendationIds(new Long[]{dreamRecommendation.getId()});
+        //TODO 重新生成代办
+
         return toAjax(dreamRecommendationService.updateDreamRecommendation(dreamRecommendation));
     }
 
     /**
      * 删除推荐计划
      */
-    //TODO 需关联代办
+    @Transactional
     @PreAuthorize("@ss.hasPermi('module:recommendation:remove')")
     @Log(title = "推荐计划", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(dreamRecommendationService.deleteDreamRecommendationByIds(ids));
+
+        //先删除Recommendation，再考虑Todo
+        int isDeleteRecomendation = dreamRecommendationService.deleteDreamRecommendationByIds(ids);
+        int isDeleteTodo = dreamTodoService.deleteDreamTodoByRecommendationIds(ids);
+        if (isDeleteRecomendation > 0 || isDeleteTodo > 0) {
+            return toAjax(isDeleteRecomendation);
+        } else {
+            return toAjax(0);
+        }
+
     }
 }
